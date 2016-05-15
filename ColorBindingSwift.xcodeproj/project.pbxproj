@@ -7,14 +7,19 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E460F5CC1CE8EC8700B807BC /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = E460F5CB1CE8EC8700B807BC /* Color.swift */; };
 		E4FE42491CE76A42007111C2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4FE42481CE76A42007111C2 /* AppDelegate.swift */; };
 		E4FE424B1CE76A42007111C2 /* Document.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4FE424A1CE76A42007111C2 /* Document.swift */; };
 		E4FE424E1CE76A42007111C2 /* Document.xib in Resources */ = {isa = PBXBuildFile; fileRef = E4FE424C1CE76A42007111C2 /* Document.xib */; };
 		E4FE42501CE76A42007111C2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E4FE424F1CE76A42007111C2 /* Assets.xcassets */; };
 		E4FE42531CE76A42007111C2 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = E4FE42511CE76A42007111C2 /* MainMenu.xib */; };
+		E4FE425C1CE76A7A007111C2 /* ColorsWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4FE425A1CE76A7A007111C2 /* ColorsWindowController.swift */; };
+		E4FE425D1CE76A7A007111C2 /* ColorsWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E4FE425B1CE76A7A007111C2 /* ColorsWindowController.xib */; };
+		E4FE425F1CE76AEC007111C2 /* ColorsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4FE425E1CE76AEC007111C2 /* ColorsView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		E460F5CB1CE8EC8700B807BC /* Color.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
 		E4FE42451CE76A42007111C2 /* ColorBindingSwift.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ColorBindingSwift.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E4FE42481CE76A42007111C2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E4FE424A1CE76A42007111C2 /* Document.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Document.swift; sourceTree = "<group>"; };
@@ -22,6 +27,9 @@
 		E4FE424F1CE76A42007111C2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E4FE42521CE76A42007111C2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		E4FE42541CE76A42007111C2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E4FE425A1CE76A7A007111C2 /* ColorsWindowController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorsWindowController.swift; sourceTree = "<group>"; };
+		E4FE425B1CE76A7A007111C2 /* ColorsWindowController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ColorsWindowController.xib; sourceTree = "<group>"; };
+		E4FE425E1CE76AEC007111C2 /* ColorsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorsView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -55,6 +63,10 @@
 			isa = PBXGroup;
 			children = (
 				E4FE42481CE76A42007111C2 /* AppDelegate.swift */,
+				E4FE425A1CE76A7A007111C2 /* ColorsWindowController.swift */,
+				E4FE425B1CE76A7A007111C2 /* ColorsWindowController.xib */,
+				E4FE425E1CE76AEC007111C2 /* ColorsView.swift */,
+				E460F5CB1CE8EC8700B807BC /* Color.swift */,
 				E4FE424A1CE76A42007111C2 /* Document.swift */,
 				E4FE424C1CE76A42007111C2 /* Document.xib */,
 				E4FE424F1CE76A42007111C2 /* Assets.xcassets */,
@@ -123,6 +135,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E4FE42501CE76A42007111C2 /* Assets.xcassets in Resources */,
+				E4FE425D1CE76A7A007111C2 /* ColorsWindowController.xib in Resources */,
 				E4FE424E1CE76A42007111C2 /* Document.xib in Resources */,
 				E4FE42531CE76A42007111C2 /* MainMenu.xib in Resources */,
 			);
@@ -135,8 +148,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E4FE425F1CE76AEC007111C2 /* ColorsView.swift in Sources */,
 				E4FE424B1CE76A42007111C2 /* Document.swift in Sources */,
 				E4FE42491CE76A42007111C2 /* AppDelegate.swift in Sources */,
+				E460F5CC1CE8EC8700B807BC /* Color.swift in Sources */,
+				E4FE425C1CE76A7A007111C2 /* ColorsWindowController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -287,6 +303,7 @@
 				E4FE42591CE76A42007111C2 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

@@ -19,12 +19,6 @@ class Document: NSDocument {
 		return true
 	}
 
-	override var windowNibName: String? {
-		// Returns the nib file name of the document
-		// If you need to use a subclass of NSWindowController or if your document supports multiple NSWindowControllers, you should remove this property and override -makeWindowControllers instead.
-		return "Document"
-	}
-
 	override func dataOfType(typeName: String) throws -> NSData {
 		// Insert code here to write your document to data of the specified type. If outError != nil, ensure that you create and set an appropriate error when returning nil.
 		// You can also choose to override fileWrapperOfType:error:, writeToURL:ofType:error:, or writeToURL:ofType:forSaveOperation:originalContentsURL:error: instead.
@@ -38,6 +32,22 @@ class Document: NSDocument {
 		throw NSError(domain: NSOSStatusErrorDomain, code: unimpErr, userInfo: nil)
 	}
 
+	override func makeWindowControllers() {
+		addWindowController(ColorsWindowController())
+		
+	}
+	
+	// MARK: - Properties
+	var windowController: ColorsWindowController? {
+		get {
+			if windowControllers.count == 0 {
+				Swift.print("Document -- no window controllers!!")
+				return nil
+			}
+			return windowControllers[0] as? ColorsWindowController
+		}
+	}
 
+	dynamic var colors = [Color]()
 }
 
