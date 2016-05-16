@@ -10,17 +10,49 @@ import Cocoa
 
 @objc(Color)
 class Color: NSObject {
-	dynamic var red = CGFloat(0)
-	dynamic var green = CGFloat(0)
-	dynamic var blue = CGFloat(0)
+	dynamic var _red = CGFloat(0)
+	dynamic var _green = CGFloat(0)
+	dynamic var _blue = CGFloat(0)
 	
-	dynamic var color: NSColor {
+	override init() {
+		super.init()
+	}
+	
+	var color: NSColor {
 		get {
-			return NSColor(deviceRed: red, green: green, blue: blue, alpha: 1.0)
+			return NSColor(deviceRed: 0, green: 0, blue: 0, alpha: 1.0)
 		}
 	}
 
-	class func keyPathsForValuesAffectingColor() -> Set<String> {
-		return Set<String>(arrayLiteral: RED_BINDING_NAME, GREEN_BINDING_NAME, BLUE_BINDING_NAME)
+	dynamic var red: CGFloat {
+		get {
+			return _red
+		}
+		set (inRed) {
+			willChangeValueForKey(RED_BINDING_NAME)
+			_red = inRed
+			didChangeValueForKey(RED_BINDING_NAME)
+		}
+	}
+
+	dynamic var green: CGFloat {
+		get {
+			return _green
+		}
+		set (inGreen) {
+			willChangeValueForKey(GREEN_BINDING_NAME)
+			_green = inGreen
+			didChangeValueForKey(GREEN_BINDING_NAME)
+		}
+	}
+	dynamic var blue: CGFloat {
+		get {
+			return _blue
+		}
+		set (inBlue) {
+			willChangeValueForKey(BLUE_BINDING_NAME)
+			_blue = inBlue
+			didChangeValueForKey(BLUE_BINDING_NAME)
+		}
 	}
 }

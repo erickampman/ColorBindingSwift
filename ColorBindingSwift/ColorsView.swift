@@ -9,6 +9,7 @@
 import Cocoa
 
 let COLORS_BINDING_NAME = "colors"
+let COLOR_BINDING_NAME = "color"
 let SELECTION_BINDING_NAME = "selection"
 let RED_BINDING_NAME = "red"
 let GREEN_BINDING_NAME = "green"
@@ -23,12 +24,12 @@ class ColorsView: NSView {
 	var boundInited = false
 	let emptyDictionary = StringObjectDictionary()
 
+/*
 	override class func initialize() {
 		exposeBinding(COLORS_BINDING_NAME)
 		exposeBinding(SELECTION_BINDING_NAME)
-		//		exposeBinding(CURRENT_COLOR_BINDING_NAME)
 	}
-
+*/
 	override init(frame frameRect: NSRect) {
 		super.init(frame: frameRect)
 		initBindingInfo()
@@ -47,7 +48,6 @@ class ColorsView: NSView {
 		bindingInfo[RED_BINDING_NAME] = emptyDictionary
 		bindingInfo[GREEN_BINDING_NAME] = emptyDictionary
 		bindingInfo[BLUE_BINDING_NAME] = emptyDictionary
-		//		bindingInfo[CURRENT_COLOR_BINDING_NAME] = emptyDictionary
 	}
 
 	override func bind(binding: String, toObject observable: AnyObject, withKeyPath keyPath: String, options: [String : AnyObject]?) {
@@ -66,7 +66,6 @@ class ColorsView: NSView {
 				]
 				bindingInfo[binding] = bindingsData
 				
-				//				let options = [NSKeyValueObservingOptions.New, NSKeyValueObservingOptions.Old]
 				observable.addObserver(self, forKeyPath: keyPath, options: [.Old,.New], context: &colorsViewContext)
 				
 				return
@@ -159,8 +158,9 @@ class ColorsView: NSView {
 			var tRect = NSMakeRect(bounds.origin.x, bounds.origin.y,
 			                       bounds.size.width, heightPerColor)
 			for color in colors {
-				color.set
-				Swift.print("red \(color.red) greem \(color.green) blue \(color.blue)")
+//				Swift.print("red \(color.red) greem \(color.green) blue \(color.blue)")
+				let nscolor = NSColor(deviceRed: color.red, green: color.green, blue: color.blue, alpha: 1.0)
+				nscolor.set()
 				NSBezierPath.fillRect(tRect)
 				tRect.origin.y += heightPerColor
 			}

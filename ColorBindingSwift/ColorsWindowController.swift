@@ -21,7 +21,10 @@ class ColorsWindowController: NSWindowController {
 		print("\(array)")
 		
 		colorsView.bind(COLORS_BINDING_NAME, toObject: colorsController, withKeyPath: "arrangedObjects", options: nil)
-		colorsView.bind(SELECTION_BINDING_NAME, toObject: colorsController, withKeyPath: "selection.color", options: nil)
+		colorsView.bind(SELECTION_BINDING_NAME, toObject: colorsController, withKeyPath: "selection", options: nil)
+		colorsView.bind(RED_BINDING_NAME, toObject: colorsController, withKeyPath: "selection.red", options: nil)
+		colorsView.bind(GREEN_BINDING_NAME, toObject: colorsController, withKeyPath: "selection.green", options: nil)
+		colorsView.bind(BLUE_BINDING_NAME, toObject: colorsController, withKeyPath: "selection.blue", options: nil)
 		
 		colorsView.boundInited = true
     }
