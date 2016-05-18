@@ -9,14 +9,13 @@
 import Cocoa
 
 let COLORS_BINDING_NAME = "colors"
-let COLOR_BINDING_NAME = "color"
 let SELECTION_BINDING_NAME = "selection"
 let RED_BINDING_NAME = "red"
 let GREEN_BINDING_NAME = "green"
 let BLUE_BINDING_NAME = "blue"
 
 typealias StringObjectDictionary = [String:AnyObject]
-typealias BindingDictionary = [String:[String:AnyObject]]
+typealias BindingDictionary = [String:StringObjectDictionary]
 
 class ColorsView: NSView {
 
