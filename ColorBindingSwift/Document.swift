@@ -8,7 +8,7 @@
 
 import Cocoa
 
-class Document: NSDocument {
+class Document: NSDocument, NSWindowDelegate {
 
 	override init() {
 	    super.init()
@@ -19,17 +19,13 @@ class Document: NSDocument {
 		return true
 	}
 
-	override func dataOfType(typeName: String) throws -> NSData {
-		// Insert code here to write your document to data of the specified type. If outError != nil, ensure that you create and set an appropriate error when returning nil.
-		// You can also choose to override fileWrapperOfType:error:, writeToURL:ofType:error:, or writeToURL:ofType:forSaveOperation:originalContentsURL:error: instead.
-		throw NSError(domain: NSOSStatusErrorDomain, code: unimpErr, userInfo: nil)
-	}
 
+	override func dataOfType(typeName: String) throws -> NSData {
+		return NSKeyedArchiver.archivedDataWithRootObject(colors)
+	}
+	
 	override func readFromData(data: NSData, ofType typeName: String) throws {
-		// Insert code here to read your document from the given data of the specified type. If outError != nil, ensure that you create and set an appropriate error when returning false.
-		// You can also choose to override readFromFileWrapper:ofType:error: or readFromURL:ofType:error: instead.
-		// If you override either of these, you should also override -isEntireFileLoaded to return false if the contents are lazily loaded.
-		throw NSError(domain: NSOSStatusErrorDomain, code: unimpErr, userInfo: nil)
+		colors = NSKeyedUnarchiver.unarchiveObjectWithData(data) as! [Color]
 	}
 
 	override func makeWindowControllers() {
@@ -37,6 +33,72 @@ class Document: NSDocument {
 		
 	}
 	
+	// MARK: - NSWindowDelegate
+	func windowWillClose(notification: NSNotification) {
+		colors = []
+	}
+	
+	// MARK: - Undo
+	func insertObject(color: Color, inColorsAtIndex index: Int) {
+		let undo: NSUndoManager = undoManager!
+		undo.prepareWithInvocationTarget(self).removeObjectFromColorsAtIndex(colors.count)
+		if !undo.undoing {
+			undo.setActionName("Add Color")
+		}
+		colors.insert(color, atIndex: index)
+	}
+	
+	func removeObjectFromColorsAtIndex(index: Int) {
+		let color: Color = colors[index]
+		
+		let undo: NSUndoManager = undoManager!
+		undo.prepareWithInvocationTarget(self).insertObject(color, inColorsAtIndex: index)
+		if !undo.undoing {
+			undo.setActionName("Remove Color")
+		}
+		
+		colors.removeAtIndex(index)
+	}
+
+	// MARK: - KVO
+	func startObservingColor(color: Color) {
+		color.addObserver(self, forKeyPath: "red",
+		                  options: .Old, context: &documentKVOContext)
+		color.addObserver(self, forKeyPath: "green",
+		                  options: .Old, context: &documentKVOContext)
+		color.addObserver(self, forKeyPath: "blue",
+		                  options: .Old, context: &documentKVOContext)
+	}
+	
+	func stopObservingColor(color: Color) {
+		color.removeObserver(self, forKeyPath: "red",
+		                     context: &documentKVOContext)
+		color.removeObserver(self, forKeyPath: "green",
+		                     context: &documentKVOContext)
+		color.removeObserver(self, forKeyPath: "blue",
+		                     context: &documentKVOContext)
+	}
+	
+	override func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String : AnyObject]?, context: UnsafeMutablePointer<Void>) {
+		
+		if context != &documentKVOContext {
+			super.observeValueForKeyPath(keyPath, ofObject: object, change: change, context: context)
+			return
+		}
+		
+		guard change != nil && object != nil && keyPath != nil else {
+			return
+		}
+		
+		var oldValue: AnyObject? = change![NSKeyValueChangeOldKey]
+		if oldValue is NSNull {
+			oldValue = nil
+		}
+		let undo = undoManager!
+		undo.prepareWithInvocationTarget(object!).setValue(oldValue,
+														forKeyPath: keyPath!)
+	}
+
 	// MARK: - Properties
 	var windowController: ColorsWindowController? {
 		get {
@@ -48,6 +110,18 @@ class Document: NSDocument {
 		}
 	}
 
-	dynamic var colors = [Color]()
+	dynamic var colors = [Color]() {
+		willSet {
+			for color in colors {
+				stopObservingColor(color)
+			}
+		}
+		didSet {
+			for color in colors {
+				startObservingColor(color)
+			}
+		}
+	}
 }
 
+private var documentKVOContext: Int = 0

@@ -18,12 +18,24 @@ class Color: NSObject {
 		super.init()
 	}
 	
+	required init(coder aDecoder: NSCoder) {
+		self._red = CGFloat(aDecoder.decodeDoubleForKey(RED_BINDING_NAME))
+		self._green = CGFloat(aDecoder.decodeDoubleForKey(GREEN_BINDING_NAME))
+		self._blue = CGFloat(aDecoder.decodeDoubleForKey(BLUE_BINDING_NAME))
+	}
+	
 	var color: NSColor {
 		get {
 			return NSColor(deviceRed: 0, green: 0, blue: 0, alpha: 1.0)
 		}
 	}
 
+	func encodeWithCoder(coder: NSCoder) {
+		coder.encodeDouble(Double(red), forKey: RED_BINDING_NAME)
+		coder.encodeDouble(Double(green), forKey: GREEN_BINDING_NAME)
+		coder.encodeDouble(Double(blue), forKey: BLUE_BINDING_NAME)
+	}
+	
 	dynamic var red: CGFloat {
 		get {
 			return _red

@@ -161,7 +161,7 @@
                 </subviews>
             </view>
             <connections>
-                <outlet property="delegate" destination="-2" id="0bl-1N-AYu"/>
+                <outlet property="delegate" destination="-3" id="Hbp-8U-oTx"/>
             </connections>
             <point key="canvasLocation" x="398" y="348"/>
         </window>
